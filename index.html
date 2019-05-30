@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Todo-app</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Todos</h1>
+        <input id="search-text" type="text" placeholder="Filter todos...">
+        <label>
+            <input type="checkbox" id="hide-completed"> Hide completed
+        </label>
+        <div id="todos"></div>
+        <form id="new-todo">
+            <input type="text" placeholder="Something to do" name="text"><!--Dzięki atrybutowi "name" można uzyskać dostęp do konrketnego elementu formularza przez e.target.elements-->
+            <button>Add Todo</button>
+        </form>
+        <script src="uuid.js"></script>
+        <script src="todo-functions.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>

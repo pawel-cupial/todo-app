@@ -1,7 +1,7 @@
 //Zwraca z local storage obiekt o kluczu "todos", jeśli local storage jest pusty, zwraca pustą tablicę
 const getSavedTodos = () => {
     const todosJSON = localStorage.getItem('todos')
-    if (todosJSON !== null) {
+    if (todosJSON) {
         return JSON.parse(todosJSON)
     } else {
         return []
@@ -26,7 +26,7 @@ const toggleTodo = (id) => {
     const todo = todos.find((todo) =>todo.id === id)//Iteruje przez tablicę "todos"
     //Zwraca konkretne todo, którego id jest równe id wywołanemu przez event listener poniżej (checkbox.addEventListener w funckji generateTodoDOM) i zapisuje jest w const todo. Jeśli żadne todo nie spełnia warunuku, to const todo = undefined
  
-    if(todo !== undefined) {
+    if(todo) {
         todo.completed = !todo.completed//Odwraca wartość klucza completed (jeśli wartość to true ustawia nową wartość na false, jeśli wartośc to false ustawia nową wartość na true)
     }
 }

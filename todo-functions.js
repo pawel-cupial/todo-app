@@ -1,9 +1,13 @@
 //Zwraca z local storage obiekt o kluczu "todos", jeśli local storage jest pusty, zwraca pustą tablicę
 const getSavedTodos = () => {
     const todosJSON = localStorage.getItem('todos')
-    if (todosJSON) {
-        return JSON.parse(todosJSON)
-    } else {
+    try {
+        if (todosJSON) {
+            return JSON.parse(todosJSON)
+        } else {
+            return []
+        }
+    } catch (e) {//W razie błędów w kodzie w try, dzięki wyrażeniu catch zwrócona zostanie pusta tablica (np. jeśli todosy w local storage będą w niepoprawnym formacie)
         return []
     }
 }

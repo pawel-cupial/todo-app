@@ -48,28 +48,40 @@ const renderTodos = (todos, filters) => {
     document.querySelector('#todos').innerHTML = ''//Czyści cały div id=todos przed renderowaniem, żeby elementy się nie powielały
     document.querySelector('#todos').appendChild(getSummaryDOM(incompleteTodos))//Tworzy w div id=todos heading z informacją o ilości elementów, których klucz "completed" ma wartość "false"
     
-    filteredTodos.forEach((todo) => {
-        document.querySelector('#todos').appendChild(generateTodoDOM(todo))
-    })//Iteruje przez wszystkie wyfiltorwane elementy i tworzy ich html w div id=todos
+    if(filteredTodos.length > 0) {
+        filteredTodos.forEach((todo) => {
+            document.querySelector('#todos').appendChild(generateTodoDOM(todo))
+        })//Iteruje przez wszystkie wyfiltorwane elementy i tworzy ich html w div id=todos
+    } else {
+        const messageEl = document.createElement('p')
+        messageEl.classList.add('empty-message')
+        messageEl.textContent = 'You have no todos'
+        document.querySelector('#todos').appendChild(messageEl)
+    }
 }
 
 //Generuje DOM dla każdego elementu
 const generateTodoDOM = (todo) => {
-    const todoEl = document.createElement('div')
+    const todoEl = document.createElement('label')
+    const containerEl = document.createElement('div')
     const checkbox = document.createElement('input')
     checkbox.setAttribute('type', 'checkbox')
     checkbox.checked = todo.completed//Ustawia wartość dla checked na podstawie wartości klucza "completed". Jeśli "completed" dla konkretego todo jest ustawione na true, checkbox będzie automatycznie zaznaczony
+    todoEl.classList.add('list-item')
+    containerEl.classList.add('list-item__container')
+    todoEl.appendChild(containerEl)
     const todoText = document.createElement('span')
     todoText.textContent = todo.text
     const removeButton = document.createElement('button')
-    removeButton.textContent = 'x'
-    todoEl.appendChild(checkbox)
+    removeButton.textContent = 'remove'
+    removeButton.classList.add('button', 'button--text')
+    containerEl.appendChild(checkbox)
     checkbox.addEventListener('change', (e) => {
         toggleTodo(todo.id)
         saveTodos(todos)
         renderTodos(todos, filters)
     })
-    todoEl.appendChild(todoText)
+    containerEl.appendChild(todoText)
     todoEl.appendChild(removeButton)
     removeButton.addEventListener('click', (e) => {
         //W tym miejscu jest już dostęp do indywidualnego id każdego todo. Każdy button odpowiada todo, z którym jest w divie
@@ -77,12 +89,15 @@ const generateTodoDOM = (todo) => {
         saveTodos(todos)//Zapisuje tablicę w local storage już bez usuniętego todo
         renderTodos(todos, filters)//Renderuje DOM po każdym usunięciu todo
     })
+    
     return todoEl
 }
 
 //Generuje heading z informacją o liczbie elementów z wartościa "false" w kluczu "completed"
 const getSummaryDOM = (incompleteTodos) => {
     const summary = document.createElement('h2')
-    summary.textContent = `You have ${incompleteTodos.length} todos left`
+    summary.classList.add('list-title')
+    const plural = incompleteTodos.length === 1 ? '' : 's'
+    summary.textContent = `You have ${incompleteTodos.length} todo${plural} left`
     return summary
 }

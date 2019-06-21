@@ -7,16 +7,29 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h1>Todos</h1>
-        <input id="search-text" type="text" placeholder="Filter todos...">
-        <label>
-            <input type="checkbox" id="hide-completed"> Hide completed
-        </label>
-        <div id="todos"></div>
-        <form id="new-todo">
-            <input type="text" placeholder="Something to do" name="text"><!--Dzięki atrybutowi "name" można uzyskać dostęp do konrketnego elementu formularza przez e.target.elements-->
-            <button>Add Todo</button>
-        </form>
+        <div class="header">
+            <div class="container">
+                <h1 class="header__title">To-do App</h1>
+                <h2 class="header__subtitle">What do you need to do?</h2>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="actions__container">
+                <input id="search-text" class="input" type="text" placeholder="Filter todos...">
+                <label class="checkbox">
+                    <input type="checkbox" id="hide-completed"> Hide completed
+                </label>
+            </div>
+        </div>
+        <div class="container">
+            <div id="todos"></div>
+            <form id="new-todo">
+                <input class="input" type="text" placeholder="Something to do" name="text"><!--Dzięki atrybutowi "name" można uzyskać dostęp do konrketnego elementu formularza przez e.target.elements-->
+                <button class="button">Add Todo</button>
+            </form>
+        </div>
+        
+        
         <script src="uuid.js"></script>
         <script src="todo-functions.js"></script>
         <script src="main.js"></script>

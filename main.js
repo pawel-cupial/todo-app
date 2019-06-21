@@ -13,13 +13,18 @@ document.querySelector('#search-text').addEventListener('input', (e) => {
 })
 
 document.querySelector('#new-todo').addEventListener('submit', (e) => {
+    const text = e.target.elements.text.value.trim()//Przez .elements uzyskuję dostęp do wszystkich elementów należących do formularza #new-todo po atrybucie "name"
     e.preventDefault()//Zapobiega domyślnemu zachowaniu formularza (domyślnie przeładowuje stronę i dobija tekst z submitu do adresu URL)
-    todos.push({id: uuidv4(),
-                text: e.target.elements.text.value,//Przez .elements uzyskuję dostęp do wszystkich elementów należących do formularza #new-todo po atrybucie "name" 
-                completed: false})//Dodaje nowy element do tablicy todos. Elements.text.value wstawia do klucza text to, co użytkownik submitował przez input o atrybucie name="text"
-    saveTodos(todos)//Zaspisuje tablicę todos w local storage w formacie JSON
-    renderTodos(todos, filters)//Renderuje elementy po każdym submicie
-    e.target.elements.text.value = ''//Czyści input po każdym submicie
+    
+    if(text.length > 0) {
+        todos.push(
+            {id: uuidv4(),
+            text: text, 
+            completed: false})//Dodaje nowy element do tablicy todos. Elements.text.value wstawia do klucza text to, co użytkownik submitował przez input o atrybucie name="text"
+        saveTodos(todos)//Zaspisuje tablicę todos w local storage w formacie JSON
+        renderTodos(todos, filters)//Renderuje elementy po każdym submicie
+        e.target.elements.text.value = ''//Czyści input po każdym submicie
+    } 
 })
 
 document.querySelector('#hide-completed').addEventListener('change', (e) => {
